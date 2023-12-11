@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from django.db import models
-from datetime import datetime
 
 
 class BaseModel(models.Model):
@@ -9,7 +8,7 @@ class BaseModel(models.Model):
         verbose_name='Опубликовано',
         help_text='Снимите галочку, чтобы скрыть публикацию.')
     created_at = models.DateTimeField(
-        default=datetime.now(),
+        auto_now_add=True,
         verbose_name='Добавлено')
 
     class Meta:
@@ -24,7 +23,7 @@ class Location(BaseModel):
         verbose_name_plural = 'Местоположения'
 
     def __str__(self):
-        return self.title
+        return self.name
 
 
 class Category(BaseModel):
@@ -61,13 +60,13 @@ class Post(BaseModel):
         Location,
         on_delete=models.SET_NULL,
         related_name='locations',
-        verbose_name='Локация',
+        verbose_name='Местоположение',
         null=True,
         blank=True)
     category = models.ForeignKey(
-        Location,
+        Category,
         on_delete=models.SET_NULL,
-        related_name='categories',
+        related_name='category',
         verbose_name='Категория',
         null=True)
 
