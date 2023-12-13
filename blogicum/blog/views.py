@@ -37,11 +37,7 @@ def category_posts(request, category_slug):
     category = get_object_or_404(Category.objects.filter(
         is_published=True,
     ), slug=category_slug)
-    post_list = category.category.filter(
-        is_published=True,
-        pub_date__lte=CURRENT_DATE
-    )
+    post_list = (get_post_list(category.posts))
     context = {'category': category,
                'post_list': post_list}
-    print(context)
     return render(request, template, context)
