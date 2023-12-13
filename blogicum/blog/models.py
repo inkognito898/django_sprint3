@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+from blogicum.constants import MODELS_TITLE_MAX_LENGTH
+
 
 class BaseModel(models.Model):
     is_published = models.BooleanField(
@@ -16,7 +18,9 @@ class BaseModel(models.Model):
 
 
 class Location(BaseModel):
-    name = models.CharField(max_length=256, verbose_name='Название места')
+    name = models.CharField(
+        max_length=MODELS_TITLE_MAX_LENGTH,
+        verbose_name='Название места')
 
     class Meta:
         verbose_name = 'местоположение'
@@ -27,7 +31,9 @@ class Location(BaseModel):
 
 
 class Category(BaseModel):
-    title = models.CharField(max_length=256, verbose_name='Заголовок')
+    title = models.CharField(
+        max_length=MODELS_TITLE_MAX_LENGTH,
+        verbose_name='Заголовок')
     description = models.TextField(verbose_name='Описание')
     slug = models.SlugField(
         max_length=64,
@@ -45,7 +51,9 @@ class Category(BaseModel):
 
 
 class Post(BaseModel):
-    title = models.CharField(max_length=256, verbose_name='Заголовок')
+    title = models.CharField(
+        max_length=MODELS_TITLE_MAX_LENGTH,
+        verbose_name='Заголовок')
     text = models.TextField(verbose_name='Текст')
     pub_date = models.DateTimeField(
         verbose_name='Дата и время публикации',
